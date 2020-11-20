@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8652a534932dd73548cfd2b740bae722",
+    "content-hash": "0639078285c544d7fa2a540251de71a7",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -77,11 +77,11 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.itspire.fr:itspire/common.git",
-                "reference": "ebbf8e7360de836e3b2b32be71cf965591b09cea"
+                "reference": "2a6365b7d6bf6a14573d9edb59bf725588ffc1fb"
             },
             "require": {
                 "doctrine/collections": "~1.6",
-                "php": ">=7.1",
+                "php": ">=7.4",
                 "symfony/validator": "~4.4"
             },
             "require-dev": {
@@ -112,7 +112,7 @@
             "keywords": [
                 "itspire"
             ],
-            "time": "2020-10-16T15:42:08+00:00"
+            "time": "2020-11-24T18:57:49+00:00"
         },
         {
             "name": "itspire/http-common",
@@ -120,7 +120,7 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.itspire.fr:itspire/http-common.git",
-                "reference": "f93f991d5f1558eb067b133b5088067ef7bcccba"
+                "reference": "e9b2fa7f96f5e3d2358a955e79f5e2db44dfe173"
             },
             "require": {
                 "itspire/common": "dev-development",
@@ -158,7 +158,7 @@
                 "messages",
                 "response"
             ],
-            "time": "2020-10-16T15:43:39+00:00"
+            "time": "2020-11-24T19:58:58+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1419,7 +1419,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1"
+        "php": ">=7.4"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
