@@ -8,9 +8,12 @@
 
 declare(strict_types=1);
 
-namespace Itspire\Exception\Webservice\Definitions;
+namespace Itspire\Exception\Webservice\Definition;
 
-class WSAdapterExceptionDefinition extends AbstractWSExceptionDefinition
+use Itspire\Exception\Definition\AbstractExceptionDefinition;
+
+abstract class AbstractWebserviceExceptionDefinition extends AbstractExceptionDefinition implements
+    WebserviceExceptionDefinitionInterface
 {
     public const TRANSFORMATION_ERROR = [1, 'itspire.exceptions.adapter_transformation_error'];
 }

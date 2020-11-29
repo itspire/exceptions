@@ -11,31 +11,29 @@ declare(strict_types=1);
 namespace Itspire\Exception\Http;
 
 use Itspire\Exception\AbstractException;
-use Itspire\Http\Common\Enum\HttpResponseStatus;
+use Itspire\Exception\Http\Definition\HttpExceptionDefinitionInterface;
 
-class HttpException extends AbstractException
+/** @property HttpExceptionDefinitionInterface $exceptionDefinition */
+class HttpException extends AbstractException implements HttpExceptionInterface
 {
-    protected HttpResponseStatus $httpResponseStatus;
     protected array $headers = [];
 
-    public function __construct(HttpResponseStatus $httpResponseStatus, $headers = [], \Exception $previous = null)
+    public function __construct(
+        HttpExceptionDefinitionInterface $exceptionDefinition,
+        array $headers = [],
+        \Exception $previous = null
+    ) {
+        parent::__construct($exceptionDefinition, $previous);
+        $this->headers = $headers;
+    }
+
+    public function getExceptionDefinition(): HttpExceptionDefinitionInterface
     {
-        $this->httpResponseStatus = $httpResponseStatus;
-
-        if (!empty($headers)) {
-            $this->headers = (is_array($headers)) ? $headers : [$headers];
-        }
-
-        parent::__construct($httpResponseStatus->getDescription(), $httpResponseStatus->getValue(), $previous);
+        return $this->exceptionDefinition;
     }
 
     public function getHeaders(): array
     {
         return $this->headers;
-    }
-
-    public function getHttpResponseStatus(): HttpResponseStatus
-    {
-        return $this->httpResponseStatus;
     }
 }
