@@ -10,6 +10,22 @@ declare(strict_types=1);
 
 namespace Itspire\Exception;
 
-abstract class AbstractException extends \RuntimeException
+use Itspire\Exception\Definition\ExceptionDefinitionInterface;
+
+abstract class AbstractException extends \RuntimeException implements ExceptionInterface
 {
+    protected ExceptionDefinitionInterface $exceptionDefinition;
+
+    public function __construct(ExceptionDefinitionInterface $exceptionDefinition, \Exception $previous = null)
+    {
+        $this->exceptionDefinition = $exceptionDefinition;
+
+        // Some ExceptionDefinitionInterface implementations may use a non integer value
+        // When that happens, we use 0 as default exception value
+        parent::__construct(
+            $exceptionDefinition->getDescription(),
+            is_int($exceptionDefinition->getValue()) ? $exceptionDefinition->getValue() : 0,
+            $previous
+        );
+    }
 }

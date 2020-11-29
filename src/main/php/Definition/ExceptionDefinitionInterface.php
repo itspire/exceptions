@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace Itspire\Exception\Webservice\Definitions;
+namespace Itspire\Exception\Definition;
 
-use Itspire\Common\Enum\AbstractEnum;
+use Itspire\Common\Model\Business\Enum\BusinessEnumInterface;
 
-abstract class AbstractWSExceptionDefinition extends AbstractEnum
+interface ExceptionDefinitionInterface extends BusinessEnumInterface
 {
 }
