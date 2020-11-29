@@ -77,7 +77,7 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.itspire.fr:itspire/common.git",
-                "reference": "af3fb77f77426e3125e9d3ee1f0af986a53eacf7"
+                "reference": "123c28480f04f647ae9447c2f7c35cccb60baafc"
             },
             "require": {
                 "doctrine/collections": "~1.6",
@@ -113,7 +113,7 @@
             "keywords": [
                 "itspire"
             ],
-            "time": "2020-11-29T17:09:35+00:00"
+            "time": "2020-11-29T19:40:49+00:00"
         },
         {
             "name": "itspire/http-common",
@@ -121,7 +121,7 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.itspire.fr:itspire/http-common.git",
-                "reference": "7bc42cfb6789b783034db2c67333524282dae679"
+                "reference": "4a885659733282d77d93794bd217242045d41eab"
             },
             "require": {
                 "itspire/common": "dev-development",
@@ -159,7 +159,7 @@
                 "response",
                 "status code"
             ],
-            "time": "2020-11-29T17:13:22+00:00"
+            "time": "2020-11-29T19:45:23+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

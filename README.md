@@ -1,3 +1,3 @@
 # Itspire - Exceptions
 
-Itspire Base Exceptions Classes
+This library follows the PSR-12 convention.
