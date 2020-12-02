@@ -20,6 +20,7 @@ default:
         paths:
             - $build_dir
             - $vendor_dir
+            - phpunit.xml
     tags:
         - docker-build
 
@@ -27,13 +28,16 @@ stages:
     - prepare
     - deps
     - analyse
+    - test
     - artifacts
 
 prepare:
     stage: prepare
     script:
-        - mkdir -p $build_dir/logs
+        - mkdir -p $build_dir/coverage $build_dir/logs
         - rm -rf $build_dir/logs/*
+        - rm -rf $build_dir/coverage/*
+        - cp phpunit.xml.dist phpunit.xml
 
 deps:
     stage: deps
@@ -41,6 +45,7 @@ deps:
         - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     script:
         - docker run --rm -v $(pwd):/project -w /project -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) $COMPOSER_IMAGE install --prefer-dist
+        - docker run --rm -v $(pwd):/project -w /project -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) $COMPOSER_IMAGE exec -vv -- simple-phpunit install
     after_script:
         - docker logout $CI_REGISTRY
 
@@ -53,6 +58,15 @@ analyse:
         - docker run --rm -v $(pwd):/project -w /project -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) $PHP_IMAGE $bin_dir/phpcs $PHPCS_ARGS
         - docker run --rm -v $(pwd):/project -w /project -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) $PHP_IMAGE $bin_dir/phpcpd $PHPCPD_ARGS
         - docker run --rm -v $(pwd):/project -w /project -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) $PHP_IMAGE $bin_dir/phploc $PHPLOC_ARGS
+    after_script:
+        - docker logout $CI_REGISTRY
+
+test:
+    stage: test
+    before_script:
+        - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    script:
+        - docker run --rm -v $(pwd):/project -w /project -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) $PHP_IMAGE $bin_dir/simple-phpunit --configuration /project/phpunit.xml
     after_script:
         - docker logout $CI_REGISTRY
 
