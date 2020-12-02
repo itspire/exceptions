@@ -13,7 +13,10 @@ namespace Itspire\Exception\Webservice;
 use Itspire\Exception\AbstractException;
 use Itspire\Exception\Webservice\Definition\WebserviceExceptionDefinitionInterface;
 
-/** @property WebserviceExceptionDefinitionInterface $exceptionDefinition */
+/**
+ * @property WebserviceExceptionDefinitionInterface $exceptionDefinition
+ * @method WebserviceExceptionDefinitionInterface getExceptionDefinition()
+ */
 class WebserviceException extends AbstractException implements WebserviceExceptionInterface
 {
     protected array $details = [];
@@ -27,9 +30,22 @@ class WebserviceException extends AbstractException implements WebserviceExcepti
         $this->details = $details;
     }
 
-    public function getExceptionDefinition(): WebserviceExceptionDefinitionInterface
+    public function addDetail(string $detail): WebserviceExceptionInterface
     {
-        return $this->exceptionDefinition;
+        $this->details[] = $detail;
+
+        return $this;
+    }
+
+    public function removeDetail(string $detail): WebserviceExceptionInterface
+    {
+        $key = array_search($detail, $this->details, true);
+
+        if (false !== $key) {
+            unset($this->details[$key]);
+        }
+
+        return $this;
     }
 
     public function getDetails(): array

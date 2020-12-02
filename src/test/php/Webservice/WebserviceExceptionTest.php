@@ -48,17 +48,16 @@ class WebserviceExceptionTest extends TestCase
             $webserviceExceptionDefinition->getDescription()
         );
         static::assertEquals('TRANSFORMATION_ERROR', $webserviceExceptionDefinition->getCode());
+        static::assertEquals('TRANSFORMATION_ERROR', $this->webserviceException->getUniqueIdentifier());
     }
 
     /** @test */
     public function getDetailsTest(): void
     {
-        $webserviceExceptionDefinition = new WebserviceException(
-            new WebserviceExceptionDefinition(WebserviceExceptionDefinition::TRANSFORMATION_ERROR),
-            ['detail1' => 'detail']
-        );
+        $this->webserviceException->addDetail('detail1')->addDetail('detail2');
 
-        static::assertEquals([], $this->webserviceException->getDetails());
-        static::assertEquals(['detail1' => 'detail'], $webserviceExceptionDefinition->getDetails());
+        static::assertEquals(['detail1', 'detail2'], $this->webserviceException->getDetails());
+        $this->webserviceException->removeDetail('detail2');
+        static::assertEquals(['detail1'], $this->webserviceException->getDetails());
     }
 }

@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace Itspire\Exception;
 
+use Itspire\Common\Model\Business\BusinessObjectInterface;
 use Itspire\Exception\Definition\ExceptionDefinitionInterface;
 
-interface ExceptionInterface
+interface ExceptionInterface extends BusinessObjectInterface
 {
     public function getExceptionDefinition(): ExceptionDefinitionInterface;
 }

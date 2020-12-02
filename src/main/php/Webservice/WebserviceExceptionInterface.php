@@ -11,11 +11,12 @@ declare(strict_types=1);
 namespace Itspire\Exception\Webservice;
 
 use Itspire\Exception\ExceptionInterface;
-use Itspire\Exception\Webservice\Definition\WebserviceExceptionDefinitionInterface;
 
 interface WebserviceExceptionInterface extends ExceptionInterface
 {
-    public function getDetails(): array;
+    public function addDetail(string $detail): WebserviceExceptionInterface;
 
-    public function getExceptionDefinition(): WebserviceExceptionDefinitionInterface;
+    public function removeDetail(string $detail): WebserviceExceptionInterface;
+
+    public function getDetails(): array;
 }

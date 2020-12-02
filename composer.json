@@ -13,8 +13,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "itspire/common": "dev-development",
-        "itspire/http-common": "dev-development"
+        "itspire/common": "dev-development"
     },
     "autoload": {
         "psr-4": {
