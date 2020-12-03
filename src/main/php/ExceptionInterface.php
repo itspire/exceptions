@@ -13,7 +13,7 @@ namespace Itspire\Exception;
 use Itspire\Common\Model\Business\BusinessObjectInterface;
 use Itspire\Exception\Definition\ExceptionDefinitionInterface;
 
-interface ExceptionInterface extends BusinessObjectInterface
+interface ExceptionInterface extends BusinessObjectInterface, \Throwable
 {
     public function getExceptionDefinition(): ExceptionDefinitionInterface;
 }
