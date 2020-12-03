@@ -42,16 +42,4 @@ class HttpExceptionTest extends TestCase
         static::assertEquals(HttpExceptionDefinition::HTTP_CONFLICT[1], $httpExceptionDefinition->getDescription());
         static::assertEquals('HTTP_CONFLICT', $httpExceptionDefinition->getCode());
     }
-
-    /** @test */
-    public function getHeadersTest(): void
-    {
-        $httpException = new HttpException(
-            new HttpExceptionDefinition(HttpExceptionDefinition::HTTP_CONFLICT),
-            ['X-TEST' => 'test']
-        );
-
-        static::assertEquals([], $this->httpException->getHeaders());
-        static::assertEquals(['X-TEST' => 'test'], $httpException->getHeaders());
-    }
 }

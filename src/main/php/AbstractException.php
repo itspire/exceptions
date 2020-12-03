@@ -10,13 +10,10 @@ declare(strict_types=1);
 
 namespace Itspire\Exception;
 
-use Itspire\Common\Util\EquatableTrait;
 use Itspire\Exception\Definition\ExceptionDefinitionInterface;
 
 abstract class AbstractException extends \RuntimeException implements ExceptionInterface
 {
-    use EquatableTrait;
-
     protected ExceptionDefinitionInterface $exceptionDefinition;
 
     public function __construct(ExceptionDefinitionInterface $exceptionDefinition, \Exception $previous = null)
@@ -35,11 +32,5 @@ abstract class AbstractException extends \RuntimeException implements ExceptionI
     public function getExceptionDefinition(): ExceptionDefinitionInterface
     {
         return $this->exceptionDefinition;
-    }
-
-    /** @return mixed */
-    public function getUniqueIdentifier()
-    {
-        return $this->getExceptionDefinition()->getCode();
     }
 }

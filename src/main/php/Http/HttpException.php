@@ -13,27 +13,16 @@ namespace Itspire\Exception\Http;
 use Itspire\Exception\AbstractException;
 use Itspire\Exception\Http\Definition\HttpExceptionDefinitionInterface;
 
-/** @property HttpExceptionDefinitionInterface $exceptionDefinition */
+/**
+ * @property HttpExceptionDefinitionInterface $exceptionDefinition
+ * @method HttpExceptionDefinitionInterface getExceptionDefinition()
+ */
 class HttpException extends AbstractException implements HttpExceptionInterface
 {
-    protected array $headers = [];
-
     public function __construct(
         HttpExceptionDefinitionInterface $exceptionDefinition,
-        array $headers = [],
         \Exception $previous = null
     ) {
         parent::__construct($exceptionDefinition, $previous);
-        $this->headers = $headers;
-    }
-
-    public function getExceptionDefinition(): HttpExceptionDefinitionInterface
-    {
-        return $this->exceptionDefinition;
-    }
-
-    public function getHeaders(): array
-    {
-        return $this->headers;
     }
 }

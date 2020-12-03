@@ -1,6 +1,6 @@
 {
     "name": "itspire/exceptions",
-    "description": "Itspire Root Exceptions Classes",
+    "description": "Itspire Exceptions",
     "type": "library",
     "keywords": ["itspire", "exceptions"],
     "homepage": "http://www.itspire.fr",
@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "itspire/common": "dev-development"
+        "itspire/common": "~2.0"
     },
     "autoload": {
         "psr-4": {
@@ -32,7 +32,5 @@
         "psr-4": {
             "Itspire\\Exception\\Tests\\": "src/test/php"
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

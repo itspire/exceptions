@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Itspire\Exception\Tests\Webservice;
 
-use Itspire\Exception\Tests\Webservice\Definition\WebserviceExceptionDefinition;
+use Itspire\Exception\Webservice\Definition\WebserviceExceptionDefinition;
 use Itspire\Exception\Webservice\WebserviceException;
 use Itspire\Exception\Webservice\WebserviceExceptionInterface;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,6 @@ class WebserviceExceptionTest extends TestCase
             $webserviceExceptionDefinition->getDescription()
         );
         static::assertEquals('TRANSFORMATION_ERROR', $webserviceExceptionDefinition->getCode());
-        static::assertEquals('TRANSFORMATION_ERROR', $this->webserviceException->getUniqueIdentifier());
     }
 
     /** @test */

@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Itspire\Exception\Definition;
 
-use Itspire\Common\Model\Business\Enum\BusinessEnumInterface;
+use Itspire\Common\Enum\EnumInterface;
 
-interface ExceptionDefinitionInterface extends BusinessEnumInterface
+interface ExceptionDefinitionInterface extends EnumInterface
 {
 }

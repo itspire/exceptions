@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a34d17ad0c2b55f781945c5d9d447093",
+    "content-hash": "e9afde4ccfad1d330994c2c601a08122",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -73,11 +73,11 @@
         },
         {
             "name": "itspire/common",
-            "version": "dev-development",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "git@gitlab.itspire.fr:itspire/common.git",
-                "reference": "123c28480f04f647ae9447c2f7c35cccb60baafc"
+                "reference": "62a4a16367c3d85e480ec28b1817f8076d65007b"
             },
             "require": {
                 "doctrine/collections": "~1.6",
@@ -108,12 +108,12 @@
                     "email": "ryan.rajkomar@itspire.fr"
                 }
             ],
-            "description": "Itspire Common Classes",
+            "description": "Itspire Common",
             "homepage": "http://www.itspire.fr",
             "keywords": [
                 "itspire"
             ],
-            "time": "2020-11-29T19:40:49+00:00"
+            "time": "2020-12-03T17:58:56+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -502,22 +502,22 @@
         },
         {
             "name": "phploc/phploc",
-            "version": "7.0.1",
+            "version": "7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phploc.git",
-                "reference": "e3c1dc59ddd33e12abf5325a3f42261b8ef26142"
+                "reference": "af0d5fc84f3f7725513ba59cdcbe670ac2a4532a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phploc/zipball/e3c1dc59ddd33e12abf5325a3f42261b8ef26142",
-                "reference": "e3c1dc59ddd33e12abf5325a3f42261b8ef26142",
+                "url": "https://api.github.com/repos/sebastianbergmann/phploc/zipball/af0d5fc84f3f7725513ba59cdcbe670ac2a4532a",
+                "reference": "af0d5fc84f3f7725513ba59cdcbe670ac2a4532a",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-json": "*",
-                "php": "^7.3",
+                "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0",
                 "sebastian/cli-parser": "^1.0",
                 "sebastian/version": "^3.0"
@@ -555,7 +555,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-18T13:31:11+00:00"
+            "time": "2020-12-07T05:51:20+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -723,12 +723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6"
+                "reference": "d5961914bf7f90e81af509b81e51450bff419815"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6",
-                "reference": "676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d5961914bf7f90e81af509b81e51450bff419815",
+                "reference": "d5961914bf7f90e81af509b81e51450bff419815",
                 "shasum": ""
             },
             "conflict": {
@@ -802,6 +802,8 @@
                 "friendsoftypo3/mediace": ">=7.6.2,<7.6.5",
                 "fuel/core": "<1.8.1",
                 "getgrav/grav": "<1.7-beta.8",
+                "getkirby/cms": ">=3,<3.4.5",
+                "getkirby/panel": "<2.5.14",
                 "gos/web-socket-bundle": "<1.10.4|>=2,<2.6.1|>=3,<3.3",
                 "gree/jose": "<=2.2",
                 "gregwar/rst": "<1.0.3",
@@ -1030,7 +1032,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-02T06:02:50+00:00"
+            "time": "2020-12-08T15:02:56+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -1086,21 +1088,21 @@
         },
         {
             "name": "sebastian/phpcpd",
-            "version": "6.0.2",
+            "version": "6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpcpd.git",
-                "reference": "4f130523214c755c69d1d59297afdff206c7b029"
+                "reference": "f3683aa0db2e8e09287c2bb33a595b2873ea9176"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpcpd/zipball/4f130523214c755c69d1d59297afdff206c7b029",
-                "reference": "4f130523214c755c69d1d59297afdff206c7b029",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpcpd/zipball/f3683aa0db2e8e09287c2bb33a595b2873ea9176",
+                "reference": "f3683aa0db2e8e09287c2bb33a595b2873ea9176",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
-                "php": "^7.3",
+                "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0",
                 "phpunit/php-timer": "^5.0",
                 "sebastian/cli-parser": "^1.0",
@@ -1139,7 +1141,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-18T13:27:23+00:00"
+            "time": "2020-12-07T05:39:23+00:00"
         },
         {
             "name": "sebastian/version",
@@ -1761,12 +1763,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
-        "itspire/common": 20,
         "roave/security-advisories": 20
     },
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.4"

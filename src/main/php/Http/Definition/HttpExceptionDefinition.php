@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Itspire\Exception\Http\Definition;
 
-use Itspire\Exception\Definition\AbstractExceptionDefinition;
+use Itspire\Common\Enum\AbstractEnum;
 
-final class HttpExceptionDefinition extends AbstractExceptionDefinition implements HttpExceptionDefinitionInterface
+final class HttpExceptionDefinition extends AbstractEnum implements HttpExceptionDefinitionInterface
 {
     // 4XX Client Errors
     public const HTTP_BAD_REQUEST = [400, 'Bad Request'];

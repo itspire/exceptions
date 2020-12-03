@@ -10,10 +10,9 @@ declare(strict_types=1);
 
 namespace Itspire\Exception\Webservice\Definition;
 
-use Itspire\Exception\Definition\AbstractExceptionDefinition;
+use Itspire\Common\Enum\AbstractEnum;
 
-abstract class AbstractWebserviceExceptionDefinition extends AbstractExceptionDefinition implements
-    WebserviceExceptionDefinitionInterface
+class WebserviceExceptionDefinition extends AbstractEnum implements WebserviceExceptionDefinitionInterface
 {
     public const TRANSFORMATION_ERROR = [1, 'itspire.exceptions.adapter_transformation_error'];
 }

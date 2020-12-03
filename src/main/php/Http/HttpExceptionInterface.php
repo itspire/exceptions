@@ -11,11 +11,7 @@ declare(strict_types=1);
 namespace Itspire\Exception\Http;
 
 use Itspire\Exception\ExceptionInterface;
-use Itspire\Exception\Http\Definition\HttpExceptionDefinitionInterface;
 
 interface HttpExceptionInterface extends ExceptionInterface
 {
-    public function getHeaders(): array;
-
-    public function getExceptionDefinition(): HttpExceptionDefinitionInterface;
 }
