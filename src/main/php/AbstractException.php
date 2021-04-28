@@ -14,11 +14,18 @@ use Itspire\Exception\Definition\ExceptionDefinitionInterface;
 
 abstract class AbstractException extends \RuntimeException implements ExceptionInterface
 {
-    protected ExceptionDefinitionInterface $exceptionDefinition;
-
-    public function __construct(ExceptionDefinitionInterface $exceptionDefinition, \Exception $previous = null)
-    {
-        $this->exceptionDefinition = $exceptionDefinition;
+    public function __construct(
+        protected ExceptionDefinitionInterface $exceptionDefinition,
+        \Exception $previous = null
+    ) {
+        if (get_class($exceptionDefinition) !== static::getSupportedClass()) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Provided exception definition is not valid : must be an instance of %s.',
+                    static::getSupportedClass()
+                )
+            );
+        }
 
         // Some ExceptionDefinitionInterface implementations may use a non integer value
         // When that happens, we use 0 as default exception value

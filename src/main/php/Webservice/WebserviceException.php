@@ -11,39 +11,28 @@ declare(strict_types=1);
 namespace Itspire\Exception\Webservice;
 
 use Itspire\Exception\AbstractException;
-use Itspire\Exception\Webservice\Definition\WebserviceExceptionDefinitionInterface;
+use Itspire\Exception\Definition\ExceptionDefinitionInterface;
+use Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition;
 
-/**
- * @property WebserviceExceptionDefinitionInterface $exceptionDefinition
- * @method WebserviceExceptionDefinitionInterface getExceptionDefinition()
- */
-class WebserviceException extends AbstractException implements WebserviceExceptionInterface
+class WebserviceException extends AbstractException
 {
-    protected array $details = [];
+    public static function getSupportedClass(): string
+    {
+        return WebserviceExceptionDefinition::class;
+    }
 
     public function __construct(
-        WebserviceExceptionDefinitionInterface $exceptionDefinition,
-        array $details = [],
+        ExceptionDefinitionInterface $exceptionDefinition,
+        protected array $details = [],
         \Exception $previous = null
     ) {
         parent::__construct($exceptionDefinition, $previous);
         $this->details = $details;
     }
 
-    public function addDetail(string $detail): WebserviceExceptionInterface
+    public function setDetails(array $details): self
     {
-        $this->details[] = $detail;
-
-        return $this;
-    }
-
-    public function removeDetail(string $detail): WebserviceExceptionInterface
-    {
-        $key = array_search($detail, $this->details, true);
-
-        if (false !== $key) {
-            unset($this->details[$key]);
-        }
+        $this->details = $details;
 
         return $this;
     }

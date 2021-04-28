@@ -10,20 +10,21 @@ declare(strict_types=1);
 
 namespace Itspire\Exception\Tests\Http;
 
-use Itspire\Exception\Http\Definition\HttpExceptionDefinition;
+use Itspire\Exception\Definition\Http\HttpExceptionDefinition;
+use Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition;
+use Itspire\Exception\ExceptionInterface;
 use Itspire\Exception\Http\HttpException;
-use Itspire\Exception\Http\HttpExceptionInterface;
 use PHPUnit\Framework\TestCase;
 
 class HttpExceptionTest extends TestCase
 {
-    private ?HttpExceptionInterface $httpException = null;
+    private ?ExceptionInterface $httpException = null;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->httpException = new HttpException(new HttpExceptionDefinition(HttpExceptionDefinition::HTTP_CONFLICT));
+        $this->httpException = new HttpException(HttpExceptionDefinition::HTTP_CONFLICT);
     }
 
     protected function tearDown(): void
@@ -34,12 +35,32 @@ class HttpExceptionTest extends TestCase
     }
 
     /** @test */
+    public function unsupportedClassTest(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Provided exception definition is not valid : must be an instance of %s.',
+                HttpExceptionDefinition::class
+            )
+        );
+
+        new HttpException(WebserviceExceptionDefinition::CONFLICT);
+    }
+
+    /**
+     * @test
+     * @covers \Itspire\Exception\Definition\Http\HttpExceptionDefinition::getDescription
+     */
     public function getHttpExceptionDefinitionTest(): void
     {
         $httpExceptionDefinition = $this->httpException->getExceptionDefinition();
 
-        static::assertEquals(HttpExceptionDefinition::HTTP_CONFLICT[0], $httpExceptionDefinition->getValue());
-        static::assertEquals(HttpExceptionDefinition::HTTP_CONFLICT[1], $httpExceptionDefinition->getDescription());
-        static::assertEquals('HTTP_CONFLICT', $httpExceptionDefinition->getCode());
+        static::assertEquals(HttpExceptionDefinition::HTTP_CONFLICT->name, $httpExceptionDefinition->getName());
+        static::assertEquals(HttpExceptionDefinition::HTTP_CONFLICT->value, $httpExceptionDefinition->getValue());
+        static::assertEquals(
+            HttpExceptionDefinition::HTTP_CONFLICT->getDescription(),
+            $httpExceptionDefinition->getDescription()
+        );
     }
 }

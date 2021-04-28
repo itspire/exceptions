@@ -1,0 +1,6 @@
+itspire.exceptions.definitions.webservice:
+    validation: The validation of the submitted data failed.
+    retrieval: There was a error while retrieving some of the requested data.
+    persistence: There was a error while persisting the submitted data.
+    conflict: The submitted data is creating a conflict with some pre-existing data.
+    missing: The requested data could not be found.

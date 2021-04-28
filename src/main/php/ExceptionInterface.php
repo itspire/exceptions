@@ -14,5 +14,7 @@ use Itspire\Exception\Definition\ExceptionDefinitionInterface;
 
 interface ExceptionInterface extends \Throwable
 {
+    public static function getSupportedClass(): string;
+
     public function getExceptionDefinition(): ExceptionDefinitionInterface;
 }

@@ -11,18 +11,13 @@ declare(strict_types=1);
 namespace Itspire\Exception\Http;
 
 use Itspire\Exception\AbstractException;
-use Itspire\Exception\Http\Definition\HttpExceptionDefinitionInterface;
+use Itspire\Exception\ExceptionInterface;
+use Itspire\Exception\Definition\Http\HttpExceptionDefinition;
 
-/**
- * @property HttpExceptionDefinitionInterface $exceptionDefinition
- * @method HttpExceptionDefinitionInterface getExceptionDefinition()
- */
-class HttpException extends AbstractException implements HttpExceptionInterface
+class HttpException extends AbstractException implements ExceptionInterface
 {
-    public function __construct(
-        HttpExceptionDefinitionInterface $exceptionDefinition,
-        \Exception $previous = null
-    ) {
-        parent::__construct($exceptionDefinition, $previous);
+    public static function getSupportedClass(): string
+    {
+        return HttpExceptionDefinition::class;
     }
 }
