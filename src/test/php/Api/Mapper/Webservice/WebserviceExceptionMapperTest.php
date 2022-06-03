@@ -71,6 +71,7 @@ class WebserviceExceptionMapperTest extends TestCase
         return [
             'VALIDATION' => [WebserviceExceptionDefinition::VALIDATION, HttpResponseStatus::HTTP_BAD_REQUEST],
             'RETRIEVAL' => [WebserviceExceptionDefinition::RETRIEVAL, HttpResponseStatus::HTTP_BAD_REQUEST],
+            'FORMAT' => [WebserviceExceptionDefinition::FORMAT, HttpResponseStatus::HTTP_BAD_REQUEST],
             'PERSISTENCE' => [
                 WebserviceExceptionDefinition::PERSISTENCE,
                 HttpResponseStatus::HTTP_NON_PROCESSABLE_ENTITY,

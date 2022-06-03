@@ -22,6 +22,7 @@ enum WebserviceExceptionDefinition: int implements ExceptionDefinitionInterface
     case PERSISTENCE = 3;
     case CONFLICT = 4;
     case MISSING = 5;
+    case FORMAT = 6;
 
     public static function getAllDescriptions(): array
     {
@@ -31,6 +32,7 @@ enum WebserviceExceptionDefinition: int implements ExceptionDefinitionInterface
             self::PERSISTENCE->name => 'itspire.exceptions.definitions.webservice.persistence',
             self::CONFLICT->name => 'itspire.exceptions.definitions.webservice.conflict',
             self::MISSING->name => 'itspire.exceptions.definitions.webservice.missing',
+            self::FORMAT->name => 'itspire.exceptions.definitions.webservice.format',
         ];
     }
 }

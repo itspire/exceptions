@@ -4,3 +4,4 @@ itspire.exceptions.definitions.webservice:
     persistence: Une erreur s'est produite lors de la sauvegarde des données soumises.
     conflict: Les données soumises entre en conflit avec des données pré-existantes.
     missing: Les données demandées n'ont pas pu être trouvées.
+    format: Les données soumises ne sont pas dans un format valide.

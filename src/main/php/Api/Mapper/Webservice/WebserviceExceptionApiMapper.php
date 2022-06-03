@@ -35,6 +35,7 @@ final class WebserviceExceptionApiMapper extends AbstractExceptionApiMapper
         return [
             WebserviceExceptionDefinition::VALIDATION->name => HttpResponseStatus::HTTP_BAD_REQUEST,
             WebserviceExceptionDefinition::RETRIEVAL->name => HttpResponseStatus::HTTP_BAD_REQUEST,
+            WebserviceExceptionDefinition::FORMAT->name => HttpResponseStatus::HTTP_BAD_REQUEST,
             WebserviceExceptionDefinition::PERSISTENCE->name => HttpResponseStatus::HTTP_NON_PROCESSABLE_ENTITY,
             WebserviceExceptionDefinition::CONFLICT->name => HttpResponseStatus::HTTP_CONFLICT,
             WebserviceExceptionDefinition::MISSING->name => HttpResponseStatus::HTTP_NOT_FOUND,

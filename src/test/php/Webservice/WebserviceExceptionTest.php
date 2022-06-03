@@ -12,28 +12,11 @@ namespace Itspire\Exception\Tests\Webservice;
 
 use Itspire\Exception\Definition\Http\HttpExceptionDefinition;
 use Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition;
-use Itspire\Exception\ExceptionInterface;
 use Itspire\Exception\Webservice\WebserviceException;
 use PHPUnit\Framework\TestCase;
 
 class WebserviceExceptionTest extends TestCase
 {
-    private ?ExceptionInterface $webserviceException = null;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->webserviceException = new WebserviceException(WebserviceExceptionDefinition::VALIDATION);
-    }
-
-    protected function tearDown(): void
-    {
-        unset($this->webserviceException);
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function unsupportedClassTest(): void
     {
@@ -48,35 +31,69 @@ class WebserviceExceptionTest extends TestCase
         new WebserviceException(HttpExceptionDefinition::HTTP_CONFLICT);
     }
 
+    public function getWebserviceExceptions(): array
+    {
+        return [
+            WebserviceExceptionDefinition::VALIDATION->name => [
+                WebserviceExceptionDefinition::VALIDATION,
+                new WebserviceException(WebserviceExceptionDefinition::VALIDATION)
+            ],
+            WebserviceExceptionDefinition::RETRIEVAL->name => [
+                WebserviceExceptionDefinition::RETRIEVAL,
+                new WebserviceException(WebserviceExceptionDefinition::RETRIEVAL)
+            ],
+            WebserviceExceptionDefinition::PERSISTENCE->name => [
+                WebserviceExceptionDefinition::PERSISTENCE,
+                new WebserviceException(WebserviceExceptionDefinition::PERSISTENCE)
+            ],
+            WebserviceExceptionDefinition::CONFLICT->name => [
+                WebserviceExceptionDefinition::CONFLICT,
+                new WebserviceException(WebserviceExceptionDefinition::CONFLICT)
+            ],
+            WebserviceExceptionDefinition::MISSING->name => [
+                WebserviceExceptionDefinition::MISSING,
+                new WebserviceException(WebserviceExceptionDefinition::MISSING)
+            ],
+            WebserviceExceptionDefinition::FORMAT->name => [
+                WebserviceExceptionDefinition::FORMAT,
+                new WebserviceException(WebserviceExceptionDefinition::FORMAT)
+            ],
+        ];
+    }
+
     /**
      * @test
+     * @dataProvider getWebserviceExceptions
      * @covers \Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition::getDescription
      */
-    public function getExceptionDefinitionTest(): void
-    {
-        $webserviceExceptionDefinition = $this->webserviceException->getExceptionDefinition();
-
+    public function getExceptionDefinitionTest(
+        WebserviceExceptionDefinition $webserviceExceptionDefinition,
+        WebserviceException $webserviceException
+    ): void {
         static::assertEquals(
-            WebserviceExceptionDefinition::VALIDATION->name,
-            $webserviceExceptionDefinition->getName()
+            $webserviceExceptionDefinition->name,
+            $webserviceException->getExceptionDefinition()->getName()
         );
         static::assertEquals(
-            WebserviceExceptionDefinition::VALIDATION->value,
-            $webserviceExceptionDefinition->getValue()
+            $webserviceExceptionDefinition->value,
+            $webserviceException->getExceptionDefinition()->getValue()
         );
         static::assertEquals(
-            WebserviceExceptionDefinition::VALIDATION->getDescription(),
-            $webserviceExceptionDefinition->getDescription()
+            $webserviceExceptionDefinition->getDescription(),
+            $webserviceException->getExceptionDefinition()->getDescription()
         );
     }
 
     /** @test */
     public function getDetailsTest(): void
     {
-        $this->webserviceException->setDetails(['detail1', 'detail2']);
+        $webserviceException = new WebserviceException(
+            WebserviceExceptionDefinition::VALIDATION,
+            ['detail1', 'detail2']
+        );
+        static::assertEquals(['detail1', 'detail2'], $webserviceException->getDetails());
 
-        static::assertEquals(['detail1', 'detail2'], $this->webserviceException->getDetails());
-        $this->webserviceException->setDetails(['detail1']);
-        static::assertEquals(['detail1'], $this->webserviceException->getDetails());
+        $webserviceException->setDetails(['detail1']);
+        static::assertEquals(['detail1'], $webserviceException->getDetails());
     }
 }
