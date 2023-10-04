@@ -16,7 +16,7 @@ abstract class AbstractException extends \RuntimeException implements ExceptionI
 {
     public function __construct(
         protected ExceptionDefinitionInterface $exceptionDefinition,
-        \Exception $previous = null
+        \Throwable $previous = null
     ) {
         if (get_class($exceptionDefinition) !== static::getSupportedClass()) {
             throw new \InvalidArgumentException(

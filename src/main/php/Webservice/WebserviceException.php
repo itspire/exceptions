@@ -24,7 +24,7 @@ class WebserviceException extends AbstractException
     public function __construct(
         ExceptionDefinitionInterface $exceptionDefinition,
         protected array $details = [],
-        \Exception $previous = null
+        \Throwable $previous = null
     ) {
         parent::__construct($exceptionDefinition, $previous);
         $this->details = $details;
