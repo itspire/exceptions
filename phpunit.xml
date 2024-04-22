@@ -4,20 +4,22 @@
   ~ This software is licensed under the BSD-3-Clause license. (see LICENSE.md for full license)
   ~ All Right Reserved.
   -->
-
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-         backupGlobals="false" backupStaticAttributes="false" colors="true" convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false"
-         stopOnFailure="false" bootstrap="src/test/php/bootstrap.php">
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" colors="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.1/phpunit.xsd"
+         processIsolation="false" stopOnFailure="false" cacheDirectory=".phpunit.cache" backupStaticProperties="false"
+         bootstrap="src/test/php/bootstrap.php">
     <testsuites>
         <testsuite name="Test Suite">
             <directory>src/test/php</directory>
         </testsuite>
     </testsuites>
-
     <coverage>
+        <report>
+            <html outputDirectory="build/coverage" lowUpperBound="35" highLowerBound="70" />
+            <text outputFile="php://stdout" showOnlySummary="true" />
+        </report>
+    </coverage>
+    <source>
         <include>
             <directory>src/main/php</directory>
         </include>
@@ -25,13 +27,5 @@
             <directory suffix="Interface.php">src/main/php</directory>
             <directory>src/test/php</directory>
         </exclude>
-        <report>
-            <html outputDirectory="build/coverage" lowUpperBound="35" highLowerBound="70" />
-            <text outputFile="php://stdout" showOnlySummary="true" />
-        </report>
-    </coverage>
-
-    <php>
-        <env name="SYMFONY_PHPUNIT_VERSION" value="9.5" />
-    </php>
+    </source>
 </phpunit>

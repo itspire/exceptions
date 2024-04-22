@@ -11,3 +11,4 @@
 
 # PHP Unit
 .phpunit.result.cache
+.phpunit.cache

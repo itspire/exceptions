@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2016 - 2020 Itspire.
+ * Copyright (c) 2016 - 2024 Itspire.
  * This software is licensed under the BSD-3-Clause license. (see LICENSE.md for full license)
  * All Right Reserved.
  */
@@ -15,6 +15,8 @@ use Itspire\Exception\Api\Mapper\ExceptionApiMapperInterface;
 use Itspire\Exception\Api\Mapper\Webservice\WebserviceExceptionApiMapper;
 use Itspire\Exception\Definition\Http\HttpExceptionDefinition;
 use Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class WebserviceExceptionMapperTest extends TestCase
@@ -26,19 +28,30 @@ class WebserviceExceptionMapperTest extends TestCase
         $this->exceptionMapper = new WebserviceExceptionApiMapper();
     }
 
-    /** @test */
-    public function supportsTest(): void
+    public static function getWebserviceExceptionDefinitionMap(): array
     {
-        static::assertFalse(
-            $this->exceptionMapper->supports(HttpExceptionDefinition::HTTP_BAD_REQUEST)
-        );
-
-        static::assertTrue(
-            $this->exceptionMapper->supports(WebserviceExceptionDefinition::VALIDATION)
-        );
+        return [
+            'VALIDATION' => [WebserviceExceptionDefinition::VALIDATION, HttpResponseStatus::HTTP_BAD_REQUEST],
+            'RETRIEVAL' => [WebserviceExceptionDefinition::RETRIEVAL, HttpResponseStatus::HTTP_BAD_REQUEST],
+            'FORMAT' => [WebserviceExceptionDefinition::FORMAT, HttpResponseStatus::HTTP_BAD_REQUEST],
+            'PERSISTENCE' => [
+                WebserviceExceptionDefinition::PERSISTENCE,
+                HttpResponseStatus::HTTP_NON_PROCESSABLE_ENTITY,
+            ],
+            'CONFLICT' => [WebserviceExceptionDefinition::CONFLICT, HttpResponseStatus::HTTP_CONFLICT],
+            'MISSING' => [WebserviceExceptionDefinition::MISSING, HttpResponseStatus::HTTP_NOT_FOUND],
+        ];
     }
 
-    /** @test */
+    #[Test]
+    public function supportsTest(): void
+    {
+        static::assertFalse($this->exceptionMapper->supports(HttpExceptionDefinition::HTTP_BAD_REQUEST));
+
+        static::assertTrue($this->exceptionMapper->supports(WebserviceExceptionDefinition::VALIDATION));
+    }
+
+    #[Test]
     public function mapUnsupportedExceptionDefinitionTest(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -52,10 +65,8 @@ class WebserviceExceptionMapperTest extends TestCase
         $this->exceptionMapper->map(HttpExceptionDefinition::HTTP_CONFLICT);
     }
 
-    /**
-     * @test
-     * @dataProvider getWebserviceExceptionDefinitionMap
-     */
+    #[Test]
+    #[DataProvider('getWebserviceExceptionDefinitionMap')]
     public function mapTest(
         WebserviceExceptionDefinition $webserviceExceptionDefinition,
         HttpResponseStatus $expectedHttpResponseStatus
@@ -64,20 +75,5 @@ class WebserviceExceptionMapperTest extends TestCase
         $httpResponseStatus = $this->exceptionMapper->map($webserviceExceptionDefinition);
 
         static::assertEquals($expectedHttpResponseStatus, $httpResponseStatus);
-    }
-
-    public function getWebserviceExceptionDefinitionMap(): array
-    {
-        return [
-            'VALIDATION' => [WebserviceExceptionDefinition::VALIDATION, HttpResponseStatus::HTTP_BAD_REQUEST],
-            'RETRIEVAL' => [WebserviceExceptionDefinition::RETRIEVAL, HttpResponseStatus::HTTP_BAD_REQUEST],
-            'FORMAT' => [WebserviceExceptionDefinition::FORMAT, HttpResponseStatus::HTTP_BAD_REQUEST],
-            'PERSISTENCE' => [
-                WebserviceExceptionDefinition::PERSISTENCE,
-                HttpResponseStatus::HTTP_NON_PROCESSABLE_ENTITY,
-            ],
-            'CONFLICT' => [WebserviceExceptionDefinition::CONFLICT, HttpResponseStatus::HTTP_CONFLICT],
-            'MISSING' => [WebserviceExceptionDefinition::MISSING, HttpResponseStatus::HTTP_NOT_FOUND],
-        ];
     }
 }
