@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2016 - 2020 Itspire.
+ * Copyright (c) 2016 - 2024 Itspire.
  * This software is licensed under the BSD-3-Clause license. (see LICENSE.md for full license)
  * All Right Reserved.
  */
@@ -19,6 +19,7 @@ use Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition;
 use Itspire\Exception\Http\HttpException;
 use Itspire\Exception\ExceptionInterface;
 use Itspire\Exception\Webservice as BusinessModel;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
@@ -39,12 +40,10 @@ class WebserviceExceptionApiAdapterTest extends TestCase
             self::$translator->addLoader('yml', new YamlFileLoader());
 
             $finder = new Finder();
-            $finder->files()->in(
-                [
-                    realpath('src/main/resources/translations'),
-                    realpath('src/test/resources/translations')
-                ]
-            );
+            $finder->files()->in([
+                realpath('src/main/resources/translations'),
+                realpath('src/test/resources/translations')
+            ]);
 
             foreach ($finder as $file) {
                 $fileNameParts = explode('.', $file->getFilename());
@@ -76,19 +75,17 @@ class WebserviceExceptionApiAdapterTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
+    #[Test]
     public function supportsTest(): void
     {
-        static::assertFalse(
-            $this->webserviceExceptionAdapter->supports(new ApiModel\ExceptionApi())
-        );
+        static::assertFalse($this->webserviceExceptionAdapter->supports(new ApiModel\ExceptionApi()));
 
         static::assertTrue(
             $this->webserviceExceptionAdapter->supports(new ApiWebserviceModel\WebserviceExceptionApi())
         );
     }
 
-    /** @test */
+    #[Test]
     public function adaptBusinessToApiWithUnsupportedClassTest(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -101,7 +98,7 @@ class WebserviceExceptionApiAdapterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function adaptBusinessToApiTest(): void
     {
         static::assertEquals(
@@ -110,7 +107,7 @@ class WebserviceExceptionApiAdapterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function adaptBusinessToApiWithDetailsTest(): void
     {
         $this->businessWebserviceException = new BusinessModel\WebserviceException(
@@ -126,22 +123,20 @@ class WebserviceExceptionApiAdapterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function adaptApiToBusinessWithUnsupportedClassTest(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Adapter %s does not support %s class',
-                WebserviceExceptionApiAdapter::class,
-                ApiModel\ExceptionApi::class
-            )
-        );
+        $this->expectExceptionMessage(sprintf(
+            'Adapter %s does not support %s class',
+            WebserviceExceptionApiAdapter::class,
+            ApiModel\ExceptionApi::class
+        ));
 
         $this->webserviceExceptionAdapter->adaptApiExceptionToBusinessException(new ApiModel\ExceptionApi());
     }
 
-    /** @test */
+    #[Test]
     public function adaptApiToBusinessTest(): void
     {
         $businessWebserviceException = $this->webserviceExceptionAdapter->adaptApiExceptionToBusinessException(
@@ -149,17 +144,14 @@ class WebserviceExceptionApiAdapterTest extends TestCase
         );
 
         static::assertEquals(
-            $this->businessWebserviceException->getExceptionDefinition()->getName(),
-            $businessWebserviceException->getExceptionDefinition()->getName()
+            $this->businessWebserviceException->getExceptionDefinition()->name,
+            $businessWebserviceException->getExceptionDefinition()->name
         );
 
-        static::assertEquals(
-            $this->apiWebserviceException->getDetails(),
-            $businessWebserviceException->getDetails()
-        );
+        static::assertEquals($this->apiWebserviceException->getDetails(), $businessWebserviceException->getDetails());
     }
 
-    /** @test */
+    #[Test]
     public function adaptApiToBusinessWithDetailsTest(): void
     {
         $this->apiWebserviceException->setDetails(['detail1', 'detail2']);

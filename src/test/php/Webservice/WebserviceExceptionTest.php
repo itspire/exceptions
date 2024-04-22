@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2016 - 2020 Itspire.
+ * Copyright (c) 2016 - 2024 Itspire.
  * This software is licensed under the BSD-3-Clause license. (see LICENSE.md for full license)
  * All Right Reserved.
  */
@@ -13,25 +13,15 @@ namespace Itspire\Exception\Tests\Webservice;
 use Itspire\Exception\Definition\Http\HttpExceptionDefinition;
 use Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition;
 use Itspire\Exception\Webservice\WebserviceException;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
+#[CoversMethod(WebserviceExceptionDefinition::class, 'getDescription')]
 class WebserviceExceptionTest extends TestCase
 {
-    /** @test */
-    public function unsupportedClassTest(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Provided exception definition is not valid : must be an instance of %s.',
-                WebserviceExceptionDefinition::class
-            )
-        );
-
-        new WebserviceException(HttpExceptionDefinition::HTTP_CONFLICT);
-    }
-
-    public function getWebserviceExceptions(): array
+    public static function getWebserviceExceptions(): array
     {
         return [
             WebserviceExceptionDefinition::VALIDATION->name => [
@@ -61,22 +51,31 @@ class WebserviceExceptionTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider getWebserviceExceptions
-     * @covers \Itspire\Exception\Definition\Webservice\WebserviceExceptionDefinition::getDescription
-     */
+    #[Test]
+    public function unsupportedClassTest(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
+            'Provided exception definition is not valid : must be an instance of %s.',
+            WebserviceExceptionDefinition::class
+        ));
+
+        new WebserviceException(HttpExceptionDefinition::HTTP_CONFLICT);
+    }
+
+    #[Test]
+    #[DataProvider('getWebserviceExceptions')]
     public function getExceptionDefinitionTest(
         WebserviceExceptionDefinition $webserviceExceptionDefinition,
         WebserviceException $webserviceException
     ): void {
         static::assertEquals(
             $webserviceExceptionDefinition->name,
-            $webserviceException->getExceptionDefinition()->getName()
+            $webserviceException->getExceptionDefinition()->name
         );
         static::assertEquals(
             $webserviceExceptionDefinition->value,
-            $webserviceException->getExceptionDefinition()->getValue()
+            $webserviceException->getExceptionDefinition()->value
         );
         static::assertEquals(
             $webserviceExceptionDefinition->getDescription(),
@@ -84,7 +83,7 @@ class WebserviceExceptionTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function getDetailsTest(): void
     {
         $webserviceException = new WebserviceException(
